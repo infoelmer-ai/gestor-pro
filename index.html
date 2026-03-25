@@ -1206,5 +1206,23 @@ if (stored && parseInt(stored, 10) > Date.now()) {
   </svg>
   ¿Tienes dudas?
 </a>
+  
+  <script>
+  const waBtn = document.querySelector('a[href*="wa.me"]');
+  const footer = document.querySelector('footer');
+
+  window.addEventListener('scroll', () => {
+    const footerTop = footer.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+
+    if (footerTop < windowHeight) {
+      const overlap = windowHeight - footerTop + 12;
+      waBtn.style.bottom = overlap + 'px';
+    } else {
+      waBtn.style.bottom = '24px';
+    }
+  });
+</script>
+  
 </body>
 </html>
