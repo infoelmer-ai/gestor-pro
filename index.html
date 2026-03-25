@@ -1146,14 +1146,17 @@
   });
 
   // ── Countdown timer ────────────────────────────────────────────────────────
-  const stored = localStorage.getItem('gestorpro_deadline');
-  let deadline;
-  if (stored) {
-    deadline = parseInt(stored, 10);
-  } else {
-    deadline = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
-    localStorage.setItem('gestorpro_deadline', deadline);
-  }
+const DURATION = 24 * 60 * 60 * 1000; // 24 horas
+
+let stored = localStorage.getItem('gestorpro_deadline');
+let deadline;
+
+if (stored && parseInt(stored, 10) > Date.now()) {
+  deadline = parseInt(stored, 10); // aún vigente
+} else {
+  deadline = Date.now() + DURATION; // expiró o es nuevo → reinicia
+  localStorage.setItem('gestorpro_deadline', deadline);
+}
 
   function pad(n) { return String(n).padStart(2, '0'); }
   function tick() {
